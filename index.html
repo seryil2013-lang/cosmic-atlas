@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMIC ATLAS | Andromeda</title>
+<style>
+:root{--cyan:#83dfff;--muted:#9fb2c8;--panel:rgba(7,15,30,.78)}
+*{box-sizing:border-box}
+body{margin:0;background:#030711;color:#edf6ff;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;overflow-x:hidden}
+#stars{position:fixed;inset:0;pointer-events:none;opacity:.65;background-image:radial-gradient(1px 1px at 12% 18%,#fff 99%,transparent),radial-gradient(1px 1px at 72% 32%,#b8dfff 99%,transparent),radial-gradient(2px 2px at 42% 77%,#fff 99%,transparent),radial-gradient(1px 1px at 88% 82%,#fff 99%,transparent),radial-gradient(1px 1px at 25% 62%,#9ecfff 99%,transparent);background-size:260px 220px,330px 270px,410px 350px,290px 300px,370px 260px}
+header{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:22px 5vw;border-bottom:1px solid #ffffff18;background:#030711b8;backdrop-filter:blur(12px)}
+.logo{font-weight:800;letter-spacing:.18em;font-size:14px}.logo span{color:var(--cyan)}
+nav{font-size:12px;color:var(--muted);letter-spacing:.12em}
+main{position:relative;z-index:1;max-width:1250px;margin:auto;padding:7vh 5vw 60px}
+.eyebrow{color:var(--cyan);letter-spacing:.24em;font-size:11px;font-weight:700}
+h1{font-size:clamp(42px,7vw,86px);line-height:.95;margin:16px 0 18px;letter-spacing:-.055em}
+.lead{max-width:610px;color:#b5c5d8;line-height:1.7;font-size:15px}
+.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr);gap:22px;margin-top:42px;align-items:stretch}
+.viewer{position:relative;min-height:480px;border:1px solid #8bdcff45;border-radius:18px;overflow:hidden;background:radial-gradient(ellipse at center,#1b2740 0,#070d1b 55%,#02050c 100%);box-shadow:0 25px 90px #0009}
+.image-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:grab}
+.image-wrap:active{cursor:grabbing}
+#galaxy{width:min(88%,760px);height:min(88%,760px);object-fit:contain;filter:saturate(1.12) contrast(1.06);transform:scale(1);transition:transform .18s ease;user-select:none;-webkit-user-drag:none;max-height:100%}
+.viewer-label{position:absolute;left:20px;top:18px;font-size:10px;letter-spacing:.18em;color:#d4eaff;background:#071426b8;border:1px solid #8bdcff40;padding:8px 11px;border-radius:20px}
+.controls{position:absolute;right:16px;bottom:16px;display:flex;gap:8px}
+button{border:1px solid #8bdcff60;background:#071426df;color:#eaf8ff;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700}
+button:hover{background:#12304b}
+.panel{border:1px solid #8bdcff35;border-radius:18px;padding:25px;background:var(--panel);backdrop-filter:blur(14px)}
+.panel h2{margin:0 0 6px;font-size:23px}.sub{color:var(--cyan);font-size:11px;letter-spacing:.16em}
+.fact{padding:16px 0;border-bottom:1px solid #ffffff16}.fact:last-of-type{border:0}
+.fact small{display:block;color:#8fa6bf;font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.fact strong{font-size:17px;font-weight:650}
+.note{font-size:12px;line-height:1.65;color:#9fb2c8;margin-top:18px}
+footer{position:relative;z-index:1;border-top:1px solid #ffffff18;padding:20px 5vw;color:#7f94ad;font-size:11px;line-height:1.7}
+a{color:var(--cyan)}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.viewer{min-height:360px}header{padding:18px 5vw}nav{display:none}main{padding-top:55px}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<header><div class="logo">COSMIC <span>ATLAS</span></div><nav>UNIVERSE EXPLORER&nbsp; / &nbsp;EARLY ACCESS</nav></header>
+<main>
+  <div class="eyebrow">DEEP SPACE OBSERVATION · M31</div>
+  <h1>ANDROMEDA<br>GALAXY</h1>
+  <p class="lead">Samanyolu'nun en yakın büyük galaktik komşularından birini keşfet. Görsel, NASA'nın yayımladığı gerçek teleskop gözlemidir; yakınlaştırmak için fare tekerleğini veya düğmeleri kullan.</p>
+  <section class="layout">
+    <div class="viewer">
+      <div class="viewer-label">NASA / NOAO OBSERVATION</div>
+      <div class="image-wrap" id="dragArea">
+        <img id="galaxy" alt="Andromeda Galaksisi M31, teleskop gözlemi" src="https://assets.science.nasa.gov/dynamicimage/assets/science/missions/hubble/releases/2012/01/STScI-01EVVHBN057NF9YF8SZ6K3Q2PQ.tif?w=1200&format=jpg">
+      </div>
+      <div class="controls"><button id="minus" aria-label="Uzaklaştır">−</button><button id="reset">SIFIRLA</button><button id="plus" aria-label="Yakınlaştır">+</button></div>
+    </div>
+    <aside class="panel">
+      <div class="sub">GALAXY PROFILE</div>
+      <h2>Messier 31</h2>
+      <div class="fact"><small>Diğer adları</small><strong>M31 · NGC 224</strong></div>
+      <div class="fact"><small>Türü</small><strong>Sarmal galaksi</strong></div>
+      <div class="fact"><small>Uzaklığı</small><strong>Yaklaşık 2,5 milyon ışık yılı</strong></div>
+      <div class="fact"><small>Gökyüzündeki konumu</small><strong>Andromeda takımyıldızı</strong></div>
+      <p class="note">Bu ilk sürüm, gerçek gözlem görüntüsünü ve temel katalog bilgilerini sunar. Görüntü üzerinde yakınlaştırma yapılabilir. Uydu galaksilerin konumlarını ve 3B katalog haritasını sonraki sürümde gerçek ölçüm verileriyle ekleyeceğiz.</p>
+    </aside>
+  </section>
+</main>
+<footer>
+  Görsel kredisi: Travis Rector ve B. Wolpa (NOAO, AURA, NSF) ·
+  <a href="https://science.nasa.gov/asset/hubble/ground-based-image-of-andromeda-galaxy-m31/" target="_blank" rel="noopener">NASA görsel kaynağı ve gözlem bilgileri</a>.
+  <br>COSMIC ATLAS — öğrenci projesi için geliştirilen erken sürüm.
+</footer>
+<script>
+const img=document.getElementById('galaxy');let zoom=1,dx=0,dy=0;
+function draw(){img.style.transform=`translate(${dx}px,${dy}px) scale(${zoom})`}
+function setZoom(v){zoom=Math.max(.65,Math.min(3.2,v));draw()}
+document.getElementById('plus').onclick=()=>setZoom(zoom*1.2);
+document.getElementById('minus').onclick=()=>setZoom(zoom/1.2);
+document.getElementById('reset').onclick=()=>{zoom=1;dx=0;dy=0;draw()};
+document.getElementById('dragArea').addEventListener('wheel',e=>{e.preventDefault();setZoom(zoom*(e.deltaY<0?1.12:.89))},{passive:false});
+let dragging=false,lastX=0,lastY=0;
+const area=document.getElementById('dragArea');
+area.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;area.setPointerCapture(e.pointerId)});
+area.addEventListener('pointermove',e=>{if(!dragging)return;dx+=e.clientX-lastX;dy+=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;draw()});
+area.addEventListener('pointerup',()=>dragging=false);
+area.addEventListener('pointercancel',()=>dragging=false);
+</script>
+</body>
+</html>
